@@ -11,6 +11,8 @@ try {
 
   console.log({ s3Bucket, secretAccessKey, accessKeyId });
   console.log(`The event payload: ${payload}`);
+
+  core.setOutput("s3_url", "the://url");
 } catch (error) {
   core.setFailed(error.message);
 }
