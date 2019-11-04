@@ -8,6 +8,6 @@ export AWS_DEFAULT_REGION="eu-west-1"
 
 aws s3 ls
 
-aws.sh s3 cp ./package.json s3://frontfailure
+aws.sh s3 cp ./build s3://frontfailure/build
 
 echo ::set-output name=s3_url::"s3://frontfailure"
