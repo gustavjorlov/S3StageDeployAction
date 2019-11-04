@@ -2,6 +2,12 @@
 
 echo "Hello $1 $2 $3"
 
-AWS_ACCESS_KEY_ID=$3 AWS_SECRET_ACCESS_KEY=$2 aws s3 --region=eu-west-1 ls
+export AWS_ACCESS_KEY_ID=$3
+export AWS_SECRET_ACCESS_KEY=$2
+export AWS_DEFAULT_REGION="eu-west-1"
 
-echo ::set-output name=s3_url::"the url"
+./aws s3 ls
+
+./aws.sh s3 cp ./package.json s3://frontfailure
+
+echo ::set-output name=s3_url::"s3://frontfailure"
