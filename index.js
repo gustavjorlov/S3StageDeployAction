@@ -22,6 +22,14 @@ const run = async () => {
         }
       }
     };
+    const awsOptions = {
+      ...options,
+      env: {
+        AWS_ACCESS_KEY_ID: accessKeyId,
+        AWS_SECRET_ACCESS_KEY: secretAccessKey,
+        AWS_DEFAULT_REGION: "eu-west-1"
+      }
+    };
 
     await exec.exec("ls", ["."], options);
     // await exec.exec("export", ["AWS_ACCESS_KEY_ID=" + accessKeyId], options);
@@ -33,21 +41,12 @@ const run = async () => {
     // await exec.exec("export", ["AWS_DEFAULT_REGION=eu-west-1"], options);
 
     await exec.exec("which", ["aws"], options);
-    await exec.exec("/usr/local/bin/aws", ["s3", "ls"], {
-      env: {
-        AWS_ACCESS_KEY_ID: accessKeyId,
-        AWS_SECRET_ACCESS_KEY: secretAccessKey,
-        AWS_DEFAULT_REGION: "eu-west-1"
-      },
-      listeners: {
-        stdout: data => {
-          output += data.toString();
-        },
-        stderr: data => {
-          output += data.toString();
-        }
-      }
-    });
+    await exec.exec("/usr/local/bin/aws", ["s3", "ls"], awsOptions);
+    await exec.exec(
+      "/usr/local/bin/aws",
+      ["s3", "cp", "package.json", "s3://" + s3Bucket],
+      awsOptions
+    );
 
     console.log("done", { output });
 
