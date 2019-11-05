@@ -24,14 +24,19 @@ const run = async () => {
     };
 
     await exec.exec("ls", ["."], options);
-    await exec.exec("export", ["AWS_ACCESS_KEY_ID=" + accessKeyId], options);
-    await exec.exec(
-      "export",
-      ["AWS_SECRET_ACCESS_KEY=" + secretAccessKey],
-      options
-    );
-    await exec.exec("export", ["AWS_DEFAULT_REGION=eu-west-1"], options);
+    // await exec.exec("export", ["AWS_ACCESS_KEY_ID=" + accessKeyId], options);
+    // await exec.exec(
+    //   "export",
+    //   ["AWS_SECRET_ACCESS_KEY=" + secretAccessKey],
+    //   options
+    // );
+    // await exec.exec("export", ["AWS_DEFAULT_REGION=eu-west-1"], options);
     await exec.exec("aws", ["s3", "ls"], {
+      env: {
+        AWS_ACCESS_KEY_ID: accessKeyId,
+        AWS_SECRET_ACCESS_KEY: secretAccessKey,
+        AWS_DEFAULT_REGION: "eu-west-1"
+      },
       listeners: {
         stdout: data => {
           output += data.toString();
