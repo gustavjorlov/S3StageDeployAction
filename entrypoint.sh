@@ -8,7 +8,13 @@ export AWS_DEFAULT_REGION="eu-west-1"
 
 aws s3 ls
 
-echo $GITHUB_WORKSPACE
+ls
+
+ls / 
+
+ls ~/
+
+ls $GITHUB_WORKSPACE
 
 # aws s3 cp $GITHUB_WORKSPACE s3://frontfailure/build
 
