@@ -31,6 +31,8 @@ const run = async () => {
     //   options
     // );
     // await exec.exec("export", ["AWS_DEFAULT_REGION=eu-west-1"], options);
+
+    await exec.exec("which", ["aws"], options);
     await exec.exec("aws", ["s3", "ls"], {
       env: {
         AWS_ACCESS_KEY_ID: accessKeyId,
