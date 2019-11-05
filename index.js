@@ -49,6 +49,8 @@ const run = async () => {
     );
 
     console.log("done", { output, payload });
+    console.log(JSON.stringify(github.context.payload.head_commit, null, 2));
+    console.log("Object.keys", Object.keys(github.context.payload));
 
     core.setOutput("s3_url", "the://url");
   } catch (error) {
