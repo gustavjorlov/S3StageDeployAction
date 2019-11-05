@@ -12,7 +12,26 @@ const run = async () => {
     const payload = JSON.stringify(github.context.payload, undefined, 2);
 
     let output = "";
-    await exec.exec("ls", ["."], {
+    const options = {
+      listeners: {
+        stdout: data => {
+          output += data.toString();
+        },
+        stderr: data => {
+          output += data.toString();
+        }
+      }
+    };
+
+    await exec.exec("ls", ["."], options);
+    await exec.exec("export", ["AWS_ACCESS_KEY_ID=" + accessKeyId], options);
+    await exec.exec(
+      "export",
+      ["AWS_SECRET_ACCESS_KEY=" + secretAccessKey],
+      options
+    );
+    await exec.exec("export", ["AWS_DEFAULT_REGION=eu-west-1"], options);
+    await exec.exec("aws", ["s3", "ls"], {
       listeners: {
         stdout: data => {
           output += data.toString();
@@ -22,19 +41,6 @@ const run = async () => {
         }
       }
     });
-    // await exec.exec(`export AWS_ACCESS_KEY_ID=${accessKeyId}`);
-    // await exec.exec(`export AWS_SECRET_ACCESS_KEY=${secretAccessKey}`);
-    // await exec.exec(`export AWS_DEFAULT_REGION=eu-west-1`);
-    // await exec.exec(`aws s3 ls`, {
-    //   listeners: {
-    //     stdout: data => {
-    //       output += data.toString();
-    //     },
-    //     stderr: data => {
-    //       output += data.toString();
-    //     }
-    //   }
-    // });
 
     console.log("done", { output });
 
