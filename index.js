@@ -48,8 +48,10 @@ const run = async () => {
       awsOptions
     );
 
-    console.log("done", { output, payload });
-    console.log(JSON.stringify(github.context.payload.head_commit, null, 2));
+    // console.log("done", { output, payload });
+    console.log(JSON.stringify(github.context.payload.pull_request, null, 2));
+    console.log(JSON.stringify(github.context.payload.repository, null, 2));
+    console.log(JSON.stringify(github.context.payload.action, null, 2));
     console.log("Object.keys", Object.keys(github.context.payload));
 
     core.setOutput("s3_url", "the://url");
