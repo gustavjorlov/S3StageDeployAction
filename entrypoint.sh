@@ -8,6 +8,6 @@ export AWS_DEFAULT_REGION="eu-west-1"
 
 ls
 
-aws s3 cp build "s3://${1}/docker/"
+aws s3 cp build "s3://${1}/docker/" --recursive
 
 echo ::set-output name=s3_url::"s3://frontfailure"
