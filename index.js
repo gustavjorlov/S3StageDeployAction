@@ -44,11 +44,11 @@ const run = async () => {
     await exec.exec("/usr/local/bin/aws", ["s3", "ls"], awsOptions);
     await exec.exec(
       "/usr/local/bin/aws",
-      ["s3", "cp", "build", "s3://" + s3Bucket],
+      ["s3", "cp", "build", "s3://" + s3Bucket + "/", "--recursive"],
       awsOptions
     );
 
-    console.log("done", { output,payload });
+    console.log("done", { output, payload });
 
     core.setOutput("s3_url", "the://url");
   } catch (error) {
