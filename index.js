@@ -12,7 +12,7 @@ const run = async () => {
     const payload = JSON.stringify(github.context.payload, undefined, 2);
 
     let output = "";
-    await exec.exec("ls", {
+    await exec.exec("ls", ["."], {
       listeners: {
         stdout: data => {
           output += data.toString();
