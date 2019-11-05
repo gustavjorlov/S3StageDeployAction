@@ -4,7 +4,7 @@ const exec = require("@actions/exec");
 
 const AWS = require("aws-sdk");
 
-const run = async = () => {
+const run = async () => {
   try {
     const s3Bucket = core.getInput("s3-bucket");
     const secretAccessKey = core.getInput("secret-access-key");
