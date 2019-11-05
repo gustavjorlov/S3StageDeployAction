@@ -31,28 +31,30 @@ const run = async () => {
       }
     };
 
-    await exec.exec("ls", ["."], options);
-    // await exec.exec("export", ["AWS_ACCESS_KEY_ID=" + accessKeyId], options);
-    // await exec.exec(
-    //   "export",
-    //   ["AWS_SECRET_ACCESS_KEY=" + secretAccessKey],
-    //   options
-    // );
-    // await exec.exec("export", ["AWS_DEFAULT_REGION=eu-west-1"], options);
+    const branchName = github.context.payload.pull_request.head.ref.replace(
+      /\//,
+      "-"
+    );
 
     await exec.exec("which", ["aws"], options);
     await exec.exec("/usr/local/bin/aws", ["s3", "ls"], awsOptions);
     await exec.exec(
       "/usr/local/bin/aws",
-      ["s3", "cp", "build", "s3://" + s3Bucket + "/", "--recursive"],
+      [
+        "s3",
+        "cp",
+        "build",
+        "s3://" + s3Bucket + "/" + branchName,
+        "--recursive"
+      ],
       awsOptions
     );
 
-    // console.log("done", { output, payload });
-    console.log(JSON.stringify(github.context.payload.pull_request, null, 2));
-    console.log(JSON.stringify(github.context.payload.repository, null, 2));
-    console.log(JSON.stringify(github.context.payload.action, null, 2));
+    // console.log(JSON.stringify(github.context.payload.repository, null, 2));
+    // console.log(JSON.stringify(github.context.payload.action, null, 2));
     console.log("Object.keys", Object.keys(github.context.payload));
+
+    console.log(output);
 
     core.setOutput("s3_url", "the://url");
   } catch (error) {
