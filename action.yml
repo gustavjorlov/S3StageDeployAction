@@ -14,11 +14,11 @@ outputs:
   s3_url: # id of output
     description: "URL of the deployed content"
 runs:
-  # using: "node12"
-  # main: "index.js"
-  using: 'docker'
-  image: 'Dockerfile'
-  args:
-    - ${{ inputs.s3-bucket }}
-    - ${{ inputs.secret-access-key }}
-    - ${{ inputs.access-key-id }}
+  using: "node12"
+  main: "index.js"
+  # using: 'docker'
+  # image: 'Dockerfile'
+  # args:
+  #   - ${{ inputs.s3-bucket }}
+  #   - ${{ inputs.secret-access-key }}
+  #   - ${{ inputs.access-key-id }}

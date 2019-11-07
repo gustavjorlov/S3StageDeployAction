@@ -9,7 +9,6 @@ const run = async () => {
     const s3Bucket = core.getInput("s3-bucket");
     const secretAccessKey = core.getInput("secret-access-key");
     const accessKeyId = core.getInput("access-key-id");
-    const payload = JSON.stringify(github.context.payload, undefined, 2);
 
     let output = "";
     const options = {
@@ -49,12 +48,6 @@ const run = async () => {
       ],
       awsOptions
     );
-
-    // console.log(JSON.stringify(github.context.payload.repository, null, 2));
-    // console.log(JSON.stringify(github.context.payload.action, null, 2));
-    console.log("Object.keys", Object.keys(github.context.payload));
-
-    console.log(output);
 
     core.setOutput("s3_url", "the://url");
   } catch (error) {
